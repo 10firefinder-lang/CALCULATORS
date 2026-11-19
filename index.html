@@ -1,0 +1,672 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f6f5ef">
+  <meta name="description" content="מחשבונים בעברית, המרת מטבעות וביטקוין, שעון ישראל ולוח שנה עברי עם חגים, זמני שבת וקריאות התורה.">
+  <title>חשבון. | מחשבונים ליום־יום</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@500;600;700&display=swap">
+  <link rel="stylesheet" href="style.css">
+  <script src="app.js" defer></script>
+  <script src="catalog-data.js" defer></script>
+  <script src="stem-data.js" defer></script>
+  <script src="daily-data.js" defer></script>
+  <script src="laws-data.js" defer></script>
+  <script src="catalog.js" defer></script>
+  <script src="currency.js" defer></script>
+  <script src="combos.js" defer></script>
+  <script src="calendar.js" defer></script>
+</head>
+<body>
+  <svg class="sprites" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <symbol id="i-calc" viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M8 7h8m-8 5h1m6 0h1m-8 4h1m6 0h1"/></symbol>
+    <symbol id="i-percent" viewBox="0 0 24 24"><path d="m5 19 14-14"/><circle cx="7" cy="7" r="2.5"/><circle cx="17" cy="17" r="2.5"/></symbol>
+    <symbol id="i-swap" viewBox="0 0 24 24"><path d="M3 7h17m-4-4 4 4-4 4m5 6H4m4-4-4 4 4 4"/></symbol>
+    <symbol id="i-keyboard" viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M6 9h.01M10 9h.01M14 9h.01M18 9h.01M6 13h.01M18 13h.01M10 15h4"/></symbol>
+    <symbol id="i-clock" viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 1 2.5 6.2M3 5v7h7m2-4v5l3 2"/></symbol>
+    <symbol id="i-delete" viewBox="0 0 24 24"><path d="M22 6a2 2 0 0 0-2-2h-9L2 12l9 8h9a2 2 0 0 0 2-2ZM12 9l6 6m0-6-6 6"/></symbol>
+    <symbol id="i-chevron" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6"/><path d="m16 16 4 4"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M20 12H4m6-6-6 6 6 6"/></symbol>
+    <symbol id="i-close" viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"/></symbol>
+  </svg>
+  <header class="topbar">
+    <div class="wrap header-inner">
+      <div class="wordmark">חשבון<span>.</span></div>
+      <nav class="header-links" aria-label="קיצורי דרך">
+        <a class="library-link calendar-link" href="#calendar"><svg class="icon" aria-hidden="true"><use href="#i-clock"/></svg> לוח שנה עברי</a>
+        <a class="library-link" href="#library"><svg class="icon" aria-hidden="true"><use href="#i-search"/></svg> חיפוש מחשבון</a>
+      </nav>
+    </div>
+  </header>
+  <main class="wrap">
+    <section class="hero" aria-labelledby="intro">
+      <div class="hero-copy">
+        <p class="eyebrow"><span></span> ארגז הכלים</p>
+        <h1 id="intro">בואו נעשה חשבון<span>.</span></h1>
+        <p><span id="site-tool-total"></span>מחשבונים בעברית, מכלים ליום־יום ועד מדעים ומתמטיקה.</p>
+      </div>
+      <div class="hero-art" aria-hidden="true">
+        <span class="orbit orbit-a"></span><span class="orbit orbit-b"></span>
+        <span class="spark spark-a">✦</span><span class="spark spark-b">✧</span><span class="spark spark-c">+</span>
+        <span class="tile tile-divide">÷</span><span class="tile tile-percent">%</span><span class="tile tile-equals">=</span>
+      </div>
+    </section>
+    <div class="today-bar" aria-label="התאריך והשעה בישראל">
+      <div class="today-label"><svg class="icon" aria-hidden="true"><use href="#i-clock"/></svg><span>עכשיו בישראל</span><time id="israel-clock" dir="ltr"></time></div>
+      <div class="today-dates"><time id="today-hebrew"></time><time id="today-gregorian"></time></div>
+    </div>
+    <section class="tool-area" aria-label="מחשבונים">
+      <div class="tool-heading"><h2>מחשבונים מהירים</h2><a href="#library" class="library-jump">לספריית המחשבונים <span aria-hidden="true">↓</span></a></div>
+      <div class="tabs tabs-four" role="tablist" aria-label="בחירת מחשבון">
+        <button id="tab-basic" type="button" role="tab" aria-selected="true" aria-controls="panel-basic" data-tool="basic"><span class="tab-icon"><svg class="icon"><use href="#i-calc"/></svg></span><span>מחשבון רגיל</span></button>
+        <button id="tab-percent" type="button" role="tab" aria-selected="false" aria-controls="panel-percent" data-tool="percent" tabindex="-1"><span class="tab-icon"><svg class="icon"><use href="#i-percent"/></svg></span><span>מחשבון אחוזים</span></button>
+        <button id="tab-convert" type="button" role="tab" aria-selected="false" aria-controls="panel-convert" data-tool="convert" tabindex="-1"><span class="tab-icon"><svg class="icon"><use href="#i-swap"/></svg></span><span>המרת יחידות</span></button>
+        <button id="tab-currency" type="button" role="tab" aria-selected="false" aria-controls="panel-currency" data-tool="currency" tabindex="-1"><span class="tab-icon currency-icon" aria-hidden="true">₪</span><span>המרת מטבעות</span></button>
+      </div>
+      <div class="panel workspace" id="panel-basic" role="tabpanel" aria-labelledby="tab-basic">
+        <section class="calculator" aria-label="מחשבון רגיל">
+          <div class="calc-display">
+            <div class="calc-meta"><span><i></i> מחשבון רגיל</span><span class="mono" dir="ltr">01 / 04</span></div>
+            <div id="formula" class="formula" dir="ltr"></div>
+            <output id="display" class="display" aria-label="תוצאת המחשבון" aria-live="polite" dir="ltr">0</output>
+          </div>
+          <div class="keypad" dir="ltr" aria-label="מקשי המחשבון">
+            <button class="special" data-key="clear" aria-label="ניקוי">AC</button>
+            <button class="special" data-key="back" aria-label="מחיקת תו"><svg class="icon"><use href="#i-delete"/></svg></button>
+            <button class="special" data-key="%" aria-label="אחוז">%</button>
+            <button class="op" data-key="/" aria-label="חילוק">÷</button>
+            <button data-key="7">7</button><button data-key="8">8</button><button data-key="9">9</button><button class="op" data-key="*" aria-label="כפל">×</button>
+            <button data-key="4">4</button><button data-key="5">5</button><button data-key="6">6</button><button class="op" data-key="-" aria-label="חיסור">−</button>
+            <button data-key="1">1</button><button data-key="2">2</button><button data-key="3">3</button><button class="op" data-key="+" aria-label="חיבור">+</button>
+            <button data-key="sign" aria-label="החלפת סימן">±</button><button data-key="0">0</button><button data-key="." aria-label="נקודה עשרונית">.</button><button class="equal" data-key="=" aria-label="שווה">=</button>
+          </div>
+        </section>
+        <aside class="side">
+          <section class="history surface" aria-labelledby="history-title">
+            <div class="side-heading"><span class="side-icon"><svg class="icon"><use href="#i-clock"/></svg></span><h3 id="history-title">היסטוריית חישובים</h3><button class="quiet" id="clear-history" hidden>ניקוי</button></div>
+            <div class="empty" id="empty-history"><span class="empty-symbol" aria-hidden="true">=</span><p>אין עדיין חישובים</p><small>התוצאות יופיעו כאן במהלך הביקור.</small></div>
+            <ul id="history-list" class="history-list" hidden></ul>
+          </section>
+          <section class="shortcuts surface" aria-labelledby="keys-title">
+            <div class="side-heading"><span class="side-icon"><svg class="icon"><use href="#i-keyboard"/></svg></span><h3 id="keys-title">קיצורי מקלדת</h3></div>
+            <dl><div><dt>הצגת תוצאה</dt><dd><kbd>Enter</kbd></dd></div><div><dt>מחיקת תו</dt><dd><kbd>Backspace</kbd></dd></div><div><dt>ניקוי המחשבון</dt><dd><kbd>Esc</kbd></dd></div></dl>
+          </section>
+        </aside>
+      </div>
+      <div class="panel alternate" id="panel-percent" role="tabpanel" aria-labelledby="tab-percent" hidden>
+        <div class="form-card surface">
+          <h3>מחשבון אחוזים</h3>
+          <p class="subtext">בחרו סוג חישוב והזינו שני ערכים.</p>
+          <label class="field">סוג החישוב
+            <select id="percent-mode"><option value="of">אחוז מתוך מספר</option><option value="part">כמה אחוזים מהשלם?</option><option value="change">אחוז השינוי בין שני ערכים</option></select>
+          </label>
+          <div class="fields">
+            <label class="field"><span id="percent-label-a">אחוז (%)</span><input type="number" id="percent-a" inputmode="decimal" step="any" value="15" dir="ltr"></label>
+            <label class="field"><span id="percent-label-b">מספר</span><input type="number" id="percent-b" inputmode="decimal" step="any" value="200" dir="ltr"></label>
+          </div>
+        </div>
+        <div class="result-card">
+          <div class="calc-meta"><span><i></i> תוצאה</span><span class="mono" dir="ltr">02 / 04</span></div>
+          <output class="form-result" id="percent-result" aria-live="polite" dir="auto"></output>
+          <p id="percent-detail"></p>
+        </div>
+      </div>
+      <div class="panel alternate" id="panel-convert" role="tabpanel" aria-labelledby="tab-convert" hidden>
+        <div class="form-card surface">
+          <h3>המרת יחידות</h3>
+          <p class="subtext">בחרו קטגוריה ויחידות, והזינו ערך להמרה.</p>
+          <div class="fields">
+            <label class="field">קטגוריה<select id="convert-category"><option value="length">אורך</option><option value="mass">משקל</option><option value="temperature">טמפרטורה</option><option value="volume">נפח</option><option value="time">זמן</option></select></label>
+            <label class="field">ערך להמרה<input type="number" id="convert-number" inputmode="decimal" step="any" value="1" dir="ltr"></label>
+          </div>
+          <div class="fields convert-fields">
+            <label class="field">מיחידה<select id="convert-from"></select></label>
+            <button id="swap-units" class="swap" aria-label="החלפת יחידות" title="החלפת יחידות"><svg class="icon"><use href="#i-swap"/></svg></button>
+            <label class="field">ליחידה<select id="convert-to"></select></label>
+          </div>
+        </div>
+        <div class="result-card">
+          <div class="calc-meta"><span><i></i> תוצאה</span><span class="mono" dir="ltr">03 / 04</span></div>
+          <output class="form-result" id="convert-result" aria-live="polite" dir="auto"></output>
+          <p id="convert-detail"></p>
+        </div>
+      </div>
+      <div class="panel alternate" id="panel-currency" role="tabpanel" aria-labelledby="tab-currency" hidden>
+        <div class="form-card surface">
+          <h3>המרת מטבעות</h3>
+          <p class="subtext">בחרו מתוך 10 מטבעות, כולל ביטקוין. אפשר להחליף כיוון בלחיצה.</p>
+          <label class="field">סכום להמרה<input id="currency-amount" type="number" min="0" step="any" value="100" dir="ltr" inputmode="decimal"></label>
+          <div class="fields convert-fields">
+            <label class="field">ממטבע<select id="currency-from" dir="ltr" disabled></select></label>
+            <button id="currency-swap" class="swap" type="button" aria-label="החלפת מטבעות" title="החלפת מטבעות" disabled><svg class="icon"><use href="#i-swap"/></svg></button>
+            <label class="field">למטבע<select id="currency-to" dir="ltr" disabled></select></label>
+          </div>
+          <div class="fx-foot"><div class="fx-sources"><a href="https://frankfurter.dev/providers/ecb/" target="_blank" rel="noopener noreferrer">מטבעות: ECB</a><a href="https://docs.cdp.coinbase.com/coinbase-app/track-apis/prices" target="_blank" rel="noopener noreferrer">ביטקוין: Coinbase</a></div><button type="button" class="quiet" id="currency-refresh">רענון שערים</button></div>
+        </div>
+        <div class="result-card">
+          <div class="calc-meta"><span><i></i> תוצאה</span><span class="mono" dir="ltr">04 / 04</span></div>
+          <output class="form-result" id="currency-result" aria-live="polite" dir="auto">—</output>
+          <p id="currency-detail" dir="ltr"></p>
+          <p id="currency-status" role="status">השערים ייטענו עם פתיחת הכלי.</p>
+          <p class="fx-note">להמחשה בלבד, ללא עמלות. שערי המטבעות מתעדכנים בימי מסחר; מחיר הביטקוין משתנה לאורך היום.</p>
+        </div>
+      </div>
+    </section>
+    <section class="calendar-section" id="calendar" aria-labelledby="calendar-title">
+      <div class="library-heading"><div><p class="eyebrow"><span></span> תאריכים ושעות</p><h2 id="calendar-title">לוח שנה עברי<span>.</span></h2><p>בחרו תאריך כדי לראות את פרטי היום ולפתוח את השנה העברית שלו.</p></div></div>
+      <div class="calendar-workspace">
+        <div class="calendar-main surface">
+          <div class="calendar-controls">
+            <button type="button" id="calendar-prev" class="calendar-arrow" aria-label="לחודש הקודם" title="לחודש הקודם">›</button>
+            <h3 id="calendar-month" aria-live="polite"></h3>
+            <button type="button" id="calendar-next" class="calendar-arrow" aria-label="לחודש הבא" title="לחודש הבא">‹</button>
+          </div>
+          <div class="calendar-weekdays" aria-hidden="true"><span>א׳</span><span>ב׳</span><span>ג׳</span><span>ד׳</span><span>ה׳</span><span>ו׳</span><span>ש׳</span></div>
+          <div id="calendar-days" class="calendar-days" aria-label="ימי החודש העברי"></div>
+          <div class="calendar-actions">
+            <div class="calendar-legend"><span class="cal-key cal-key-shabbat">שבת</span><span class="cal-key cal-key-holiday">חג או מועד</span></div>
+            <button id="calendar-year-toggle" type="button" class="example-reset" aria-controls="calendar-year" aria-expanded="false">הצגת שנה</button>
+          </div>
+        </div>
+        <aside class="calendar-aside surface">
+          <p class="eyebrow"><span></span> התאריך שנבחר</p>
+          <div id="calendar-selection" aria-live="polite"><h3 id="calendar-hebrew" tabindex="-1"></h3><p id="calendar-gregorian"></p></div>
+          <div id="calendar-holidays"></div>
+          <label class="field calendar-location"><span>עיר לחישוב זמני שבת וחג</span><select id="calendar-city">
+            <option value="293943" data-minutes="20">פרדס חנה־כרכור</option><option value="281184" data-minutes="40">ירושלים</option><option value="293397" data-minutes="20">תל אביב</option><option value="294801" data-minutes="30">חיפה</option><option value="295530" data-minutes="20">באר שבע</option><option value="295277" data-minutes="20">אילת</option><option value="293067" data-minutes="30">זכרון יעקב</option>
+          </select></label>
+          <div id="calendar-events" class="calendar-events" aria-busy="true"></div>
+          <p id="calendar-status" role="status"></p>
+          <div class="calendar-actions"><button id="calendar-today" type="button" class="example-reset">חזרה להיום</button><button id="calendar-retry" type="button" class="example-reset" hidden>ניסיון חוזר</button></div>
+          <p class="calendar-note" id="calendar-convention"></p>
+          <p class="calendar-note">מועדים וקריאות לפי לוח ישראל. תאריכי הלוח מוצגים לפי היום האזרחי ואינם מתחלפים בשקיעה. <a href="https://www.hebcal.com/" target="_blank" rel="noopener noreferrer">נתונים: Hebcal</a></p>
+        </aside>
+        <section class="calendar-year surface" id="calendar-year" aria-labelledby="calendar-year-title" hidden>
+          <div class="calendar-year-header">
+            <div><p class="eyebrow"><span></span> מעבר בין חודשי השנה</p><h3 id="calendar-year-title" tabindex="-1"></h3></div>
+            <div class="calendar-year-controls">
+              <button type="button" id="calendar-year-prev" class="calendar-arrow" aria-label="לשנה הקודמת">›</button>
+              <div id="calendar-jump" role="group" aria-label="מעבר לשנה עברית"><label class="field"><span class="sr-only">שנה עברית במספרים</span><input type="number" id="calendar-jump-value" min="5700" max="5900" step="1" inputmode="numeric" required dir="ltr"></label><button type="button" id="calendar-jump-submit" class="example-reset">מעבר לשנה</button></div>
+              <button type="button" id="calendar-year-next" class="calendar-arrow" aria-label="לשנה הבאה">‹</button>
+            </div>
+          </div>
+          <div id="calendar-months" class="calendar-months"></div>
+        </section>
+      </div>
+    </section>
+    <section class="library" id="library" aria-labelledby="library-title">
+      <div class="library-heading">
+        <div><p class="eyebrow"><span></span> כלים לפי תחום ורמה</p><h2 id="library-title">ספריית המחשבונים<span>.</span></h2><p>חפשו כלי יומיומי או עברו למדעים ומתמטיקה, מכיתה א׳ ועד רמת מחקר.</p></div>
+        <div class="library-count" aria-hidden="true"><b id="library-total"></b><span>מחשבונים בספרייה</span></div>
+      </div>
+      <div class="library-controls">
+        <label class="library-search" for="catalog-search"><svg class="icon" aria-hidden="true"><use href="#i-search"/></svg><span class="sr-only">חיפוש בספריית המחשבונים</span><input id="catalog-search" type="search" placeholder="למשל: מע״מ, אינטגרל או המכנה המשותף" autocomplete="off"></label>
+        <div class="library-filter-row">
+          <div class="category-strip library-modes" id="catalog-modes" role="group" aria-label="בחירת ספרייה"><button type="button" class="category-button" data-mode="all">כל הכלים</button><button type="button" class="category-button" data-mode="daily">שימוש יומיומי</button><button type="button" class="category-button" data-mode="stem">מדעים ומתמטיקה</button></div>
+          <label class="field"><span class="sr-only">תחום</span><select id="catalog-category"></select></label>
+          <label class="field"><span class="sr-only">רמה</span><select id="catalog-level"></select></label>
+        </div>
+      </div>
+      <div class="catalog-meta"><p id="catalog-count" role="status"></p><button class="quiet" id="catalog-reset" type="button" hidden>ניקוי חיפוש וסינון</button></div>
+      <div id="catalog-grid" class="catalog-grid"></div>
+      <div class="catalog-empty surface" id="catalog-empty" hidden><b>לא נמצאו מחשבונים</b><p>נסו מילה אחרת או נקו את הסינון כדי לראות את כל הכלים.</p></div>
+    </section>
+  </main>
+  <dialog id="tool-dialog" class="tool-dialog" aria-labelledby="dialog-title">
+    <div class="dialog-inner">
+      <div class="dialog-top"><p class="eyebrow" id="dialog-category"></p><button id="dialog-close" class="dialog-close" type="button" aria-label="סגירה" title="סגירה" autofocus><svg class="icon" aria-hidden="true"><use href="#i-close"/></svg></button></div>
+      <h2 id="dialog-title"></h2><p id="dialog-description"></p><p id="dialog-method" class="dialog-method" dir="auto" hidden></p>
+      <form id="catalog-form" novalidate>
+        <div id="dialog-fields" class="dialog-fields"></div>
+        <div class="dialog-actions"><button class="calculate" type="button" id="catalog-calculate">חישוב</button><button class="example-reset" type="button" id="example-reset">איפוס לערכי הדוגמה</button></div>
+      </form>
+      <div id="dialog-result" class="dialog-result" aria-live="polite"></div>
+    </div>
+  </dialog>
+  <footer class="wrap footer"><span class="wordmark">חשבון<span>.</span></span><span>החישובים מתבצעים בדפדפן שלכם</span></footer>
+<script data-pplx-inline-edit>
+(function () {
+  if (window === window.top) return;
+
+  const allowedParentOrigins = ["https://www.perplexity.ai","https://perplexity.ai","https://testing.perplexity.ai","https://staging.perplexity.ai","https://*.preview.i.perplexity.ai","http://perplexity.localhost","http://localhost:1420","http://127.0.0.1:1420","http://localhost:3000","http://127.0.0.1:3000","http://localhost:5173","http://127.0.0.1:5173"];
+  const MAX_FONT_BYTES = 500 * 1024;
+  const MAX_TOTAL_FONT_BYTES = 2 * 1024 * 1024;
+  const DEFAULT_LINE_HEIGHT = 16;
+  let scrollForwarding = false;
+  let scrollRaf = 0;
+  let trustedTopOrigin = null;
+
+  // Allow entries like "https://*.preview.i.perplexity.ai" — the wildcard
+  // matches a single DNS label (no dots), so "https://*.foo" cannot stretch
+  // across multiple labels.
+  function matchesAllowedOrigin(origin) {
+    if (!origin) return false;
+    for (const entry of allowedParentOrigins) {
+      if (!entry.includes("*")) {
+        if (entry === origin) return true;
+        continue;
+      }
+      const pattern = new RegExp(
+        "^" +
+          entry.replace(/[.+?^${}()|[\]\\]/g, "\\$&").replace(/\*/g, "[^.]+") +
+          "$",
+      );
+      if (pattern.test(origin)) return true;
+    }
+    return false;
+  }
+
+  // Trust decision: when the sender is same-origin-visible (event.origin is a
+  // real origin like https://www.perplexity.ai) we trust event.origin directly.
+  // When event.origin is "null" (opaque broker srcdoc), we fall back to the
+  // broker's stamped `parentOrigin` to identify the top window. The fallback
+  // is claim-only — we rely on the browser's native `targetOrigin` enforcement
+  // on the response path (see postToTrustedTop) to ensure replies can't be
+  // delivered to anyone but the actual top window of that claimed origin.
+  function getTrustedParentOrigin(event) {
+    const forwardedParentOrigin =
+      typeof event.data.parentOrigin === "string" ? event.data.parentOrigin : null;
+    const parentOrigin = event.origin === "null" ? forwardedParentOrigin : event.origin;
+    return matchesAllowedOrigin(parentOrigin) ? parentOrigin : null;
+  }
+
+  // All responses go to window.top with targetOrigin = the allowlisted origin.
+  // An attacker that iframes us inside their own null-origin broker can claim
+  // any parentOrigin they like, but the browser will drop the reply whenever
+  // the real top's origin doesn't match — so the screenshot never leaves.
+  function postToTrustedTop(message) {
+    if (!trustedTopOrigin) return;
+    try {
+      window.top.postMessage(message, trustedTopOrigin);
+    } catch (_error) {}
+  }
+
+  const PICK_CAPABILITIES = ["pick"];
+  const PICK_CHAIN_LENGTH = 4;
+  const PICK_MAX_TEXT_CHARS = 120;
+  const PICK_MAX_HTML_CHARS = 300;
+
+  function truncate(value, maxChars) {
+    return value.length > maxChars ? value.slice(0, maxChars - 1) + "…" : value;
+  }
+
+  function isPickableElement(element) {
+    return (
+      element instanceof Element &&
+      element !== document.documentElement &&
+      element !== document.body
+    );
+  }
+
+  function resolvePickTarget(x, y) {
+    if (!Number.isFinite(x) || !Number.isFinite(y)) return null;
+    const element = document.elementFromPoint(x, y);
+    return isPickableElement(element) ? element.closest("svg") || element : null;
+  }
+
+  function pickLabel(element) {
+    if (element.id) return element.localName + "#" + element.id;
+    return [element.localName].concat(Array.from(element.classList).slice(0, 2)).join(".");
+  }
+
+  // Only attributes that help find the element in source. data-* values and URL
+  // query strings or fragments can carry tokens.
+  const PICK_ATTRIBUTES = new Set([
+    "id",
+    "class",
+    "name",
+    "type",
+    "role",
+    "alt",
+    "aria-label",
+    "href",
+    "src",
+  ]);
+
+  function pickAttributeValue(attribute) {
+    return attribute.name === "href" || attribute.name === "src"
+      ? attribute.value.split(/[?#]/)[0]
+      : attribute.value;
+  }
+
+  function describePickElement(element) {
+    const chain = [];
+    for (
+      let current = element;
+      isPickableElement(current) && chain.length < PICK_CHAIN_LENGTH;
+      current = current.parentElement
+    ) {
+      chain.unshift(current);
+    }
+    const attributes = Array.from(element.attributes)
+      .filter((attribute) => PICK_ATTRIBUTES.has(attribute.name))
+      .map((attribute) => ` ${attribute.name}="${pickAttributeValue(attribute).replace(/"/g, "&quot;")}"`)
+      .join("");
+    const text = (element.innerText || element.textContent || "").replace(/\s+/g, " ").trim();
+    return {
+      chain: chain.map(pickLabel),
+      html: truncate(`<${element.localName}${attributes}>`, PICK_MAX_HTML_CHARS),
+      text: text ? truncate(text, PICK_MAX_TEXT_CHARS) : undefined,
+    };
+  }
+
+  // Hover asks once per frame, and innerText on a large section forces layout,
+  // so only the rect is re-read while the pointer stays on the same element.
+  // Clicks ask for fresh details since the page may have changed the element.
+  let lastPick = null;
+
+  function describePickTarget(element, fresh) {
+    if (fresh || lastPick?.element !== element) {
+      lastPick = { element, details: describePickElement(element) };
+    }
+    const rect = element.getBoundingClientRect();
+    return {
+      rect: { x: rect.left, y: rect.top, width: rect.width, height: rect.height },
+      ...lastPick.details,
+    };
+  }
+
+  function inlineAll(original, clone) {
+    if (original.nodeType !== 1 || clone.nodeType !== 1) return;
+
+    try {
+      const computedStyle = getComputedStyle(original);
+      // cssText on a computed style is the serialized declaration in modern
+      // Chromium/Safari — a single read beats enumerating ~400 longhand
+      // properties. Firefox returns "" here, so we fall back on empty.
+      const serialized = computedStyle.cssText;
+      if (serialized) {
+        clone.style.cssText = serialized;
+      } else {
+        const parts = new Array(computedStyle.length);
+        for (let index = 0; index < computedStyle.length; index += 1) {
+          const property = computedStyle[index];
+          parts[index] = `${property}:${computedStyle.getPropertyValue(property)};`;
+        }
+        clone.style.cssText = parts.join("");
+      }
+    } catch (_error) {}
+
+    const originalChildren = original.children;
+    const clonedChildren = clone.children;
+    for (
+      let index = 0;
+      index < originalChildren.length && index < clonedChildren.length;
+      index += 1
+    ) {
+      inlineAll(originalChildren[index], clonedChildren[index]);
+    }
+  }
+
+  function extractFontUrl(srcValue) {
+    const matches = [
+      ...srcValue.matchAll(
+        /url\(["']?([^"')]+)["']?\)(?:\s*format\(["']?([^"')]+)["']?\))?/gi,
+      ),
+    ];
+    if (matches.length === 0) return null;
+    const woff2 = matches.find((m) => m[2] && m[2].toLowerCase().includes("woff2"));
+    if (woff2) return woff2[1];
+    const woff = matches.find((m) => m[2] && m[2].toLowerCase().includes("woff"));
+    if (woff) return woff[1];
+    return matches[0][1];
+  }
+
+  // Cache resolved font URL -> data URI across captures. Fonts on a page
+  // essentially never change, and a batch run emits multiple captures back to
+  // back — without this we'd refetch + re-base64 every time.
+  const fontDataUriCache = new Map();
+  const SRC_DECLARATION_RE = /src\s*:\s*[^;}]+/i;
+
+  async function fetchAsDataUri(url) {
+    if (fontDataUriCache.has(url)) return fontDataUriCache.get(url);
+    let dataUri = null;
+    try {
+      const response = await fetch(url, { mode: "cors", credentials: "omit" });
+      if (response.ok) {
+        const blob = await response.blob();
+        if (blob.size <= MAX_FONT_BYTES) {
+          dataUri = await new Promise((resolve) => {
+            const reader = new FileReader();
+            reader.onloadend = () =>
+              resolve(typeof reader.result === "string" ? reader.result : null);
+            reader.onerror = () => resolve(null);
+            reader.readAsDataURL(blob);
+          });
+        }
+      }
+    } catch (_error) {
+      dataUri = null;
+    }
+    fontDataUriCache.set(url, dataUri);
+    return dataUri;
+  }
+
+  function collectFontFaceRuleTexts() {
+    const rules = [];
+    for (const sheet of document.styleSheets) {
+      let cssRules;
+      try {
+        cssRules = sheet.cssRules;
+      } catch (_error) {
+        continue;
+      }
+      if (!cssRules) continue;
+      for (const rule of cssRules) {
+        const cssText = rule.cssText || "";
+        if (cssText.startsWith("@font-face")) rules.push(cssText);
+      }
+    }
+    return rules;
+  }
+
+  async function buildInlinedFontCss() {
+    const ruleTexts = collectFontFaceRuleTexts();
+    if (ruleTexts.length === 0) return null;
+
+    const resolved = ruleTexts.map((cssText) => {
+      if (!SRC_DECLARATION_RE.test(cssText)) return null;
+      const srcMatch = cssText.match(/src\s*:\s*([^;}]+)[;}]/i);
+      if (!srcMatch) return null;
+      const url = extractFontUrl(srcMatch[1]);
+      if (!url) return null;
+      try {
+        return { cssText, url: new URL(url, document.baseURI).href };
+      } catch (_error) {
+        return null;
+      }
+    });
+
+    const dataUris = await Promise.all(
+      resolved.map((entry) => (entry ? fetchAsDataUri(entry.url) : Promise.resolve(null))),
+    );
+
+    const inlined = [];
+    let totalBytes = 0;
+    for (let index = 0; index < resolved.length; index += 1) {
+      const entry = resolved[index];
+      const dataUri = dataUris[index];
+      if (!entry || !dataUri) continue;
+      const approxBytes = dataUri.length * 0.75;
+      if (totalBytes + approxBytes > MAX_TOTAL_FONT_BYTES) break;
+      totalBytes += approxBytes;
+      inlined.push(entry.cssText.replace(SRC_DECLARATION_RE, `src: url("${dataUri}")`));
+    }
+    return inlined.length > 0 ? inlined.join("\n") : null;
+  }
+
+  function stripExternal(clone) {
+    const images = clone.querySelectorAll("img");
+    for (let index = 0; index < images.length; index += 1) {
+      const src = images[index].getAttribute("src");
+      if (src && !src.startsWith("data:")) images[index].removeAttribute("src");
+    }
+
+    const elements = clone.querySelectorAll("*");
+    for (let index = 0; index < elements.length; index += 1) {
+      const style = elements[index].style.cssText;
+      if (style && style.includes("url(")) {
+        elements[index].style.cssText = style.replace(
+          /url\(["']?(?!data:)[^)"']*["']?\)/gi,
+          "none",
+        );
+      }
+    }
+  }
+
+  function emitScroll() {
+    scrollRaf = 0;
+    if (!scrollForwarding) return;
+    postToTrustedTop({
+      type: "INLINE_EDIT_SCROLL",
+      scrollX: window.scrollX,
+      scrollY: window.scrollY,
+      capabilities: PICK_CAPABILITIES,
+    });
+  }
+
+  window.addEventListener(
+    "scroll",
+    function () {
+      if (!scrollForwarding || scrollRaf) return;
+      scrollRaf = requestAnimationFrame(emitScroll);
+    },
+    { passive: true, capture: true },
+  );
+
+  async function handleCaptureRequest(event) {
+    const requestId = event.data.requestId;
+    const scrollX = window.scrollX;
+    const scrollY = window.scrollY;
+    const width = window.innerWidth;
+    const height = window.innerHeight;
+
+    function postResult(dataUrl) {
+      postToTrustedTop({
+        type: "INLINE_EDIT_SCREENSHOT_RESULT",
+        requestId,
+        dataUrl,
+        scrollX,
+        scrollY,
+      });
+    }
+
+    try {
+      // Wait for any pending web fonts to resolve so both inline metrics and
+      // the @font-face inlining below see the same loaded faces.
+      if (document.fonts && document.fonts.ready) {
+        try {
+          await document.fonts.ready;
+        } catch (_error) {}
+      }
+
+      const clone = document.documentElement.cloneNode(true);
+      inlineAll(document.documentElement, clone);
+
+      const removedNodes = clone.querySelectorAll("script,link[rel=\"stylesheet\"],style");
+      for (let index = 0; index < removedNodes.length; index += 1) {
+        removedNodes[index].remove();
+      }
+
+      stripExternal(clone);
+
+      // Re-embed web fonts as data-URI @font-face rules so the SVG rasterizer
+      // can resolve them — external font URLs aren't fetched during
+      // foreignObject rendering, which would otherwise force a fallback face
+      // and change text metrics.
+      const inlinedFontCss = await buildInlinedFontCss();
+      if (inlinedFontCss) {
+        const styleEl = document.createElement("style");
+        styleEl.textContent = inlinedFontCss;
+        const head = clone.querySelector("head");
+        if (head) head.appendChild(styleEl);
+        else clone.insertBefore(styleEl, clone.firstChild);
+      }
+
+      const html = new XMLSerializer().serializeToString(clone);
+      const svg =
+        `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}">` +
+        '<foreignObject width="100%" height="100%">' +
+        `<div xmlns="http://www.w3.org/1999/xhtml" style="width:${width}px;height:${height}px;overflow:hidden">` +
+        `<div style="position:relative;left:-${scrollX}px;top:-${scrollY}px">` +
+        html +
+        "</div></div></foreignObject></svg>";
+      const svgUrl = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`;
+      const image = new Image();
+      image.onload = function () {
+        const canvas = document.createElement("canvas");
+        canvas.width = width;
+        canvas.height = height;
+        canvas.getContext("2d").drawImage(image, 0, 0);
+        postResult(canvas.toDataURL("image/png"));
+      };
+      image.onerror = function () {
+        postResult(null);
+      };
+      image.src = svgUrl;
+    } catch (_error) {
+      postResult(null);
+    }
+  }
+
+  window.addEventListener("message", function (event) {
+    if (!event.data) return;
+    // Only accept messages from the direct parent frame. Blocks sibling /
+    // unrelated-window postMessage senders that could otherwise reach us.
+    if (event.source !== window.parent) return;
+
+    const trustedParentOrigin = getTrustedParentOrigin(event);
+    if (!trustedParentOrigin) return;
+    trustedTopOrigin = trustedParentOrigin;
+
+    if (event.data.type === "INLINE_EDIT_PICK") {
+      const element = resolvePickTarget(event.data.x, event.data.y);
+      postToTrustedTop({
+        type: "INLINE_EDIT_PICK_RESULT",
+        seq: event.data.seq,
+        target: element ? describePickTarget(element, event.data.fresh === true) : null,
+      });
+      return;
+    }
+
+    if (event.data.type === "INLINE_EDIT_SCROLL_START") {
+      scrollForwarding = true;
+      emitScroll();
+      return;
+    }
+
+    if (event.data.type === "INLINE_EDIT_SCROLL_STOP") {
+      scrollForwarding = false;
+      if (scrollRaf) cancelAnimationFrame(scrollRaf);
+      scrollRaf = 0;
+      return;
+    }
+
+    if (event.data.type === "INLINE_EDIT_SCROLL_BY") {
+      const { deltaX, deltaY, deltaMode } = event.data;
+      if (!scrollForwarding || !Number.isFinite(deltaX) || !Number.isFinite(deltaY)) return;
+      if (deltaMode !== 0 && deltaMode !== 1 && deltaMode !== 2) return;
+      const lineHeight =
+        parseFloat(getComputedStyle(document.documentElement).lineHeight) || DEFAULT_LINE_HEIGHT;
+      const scaleX = deltaMode === 1 ? lineHeight : deltaMode === 2 ? window.innerWidth : 1;
+      const scaleY = deltaMode === 1 ? lineHeight : deltaMode === 2 ? window.innerHeight : 1;
+      // The selection overlay receives the wheel event instead of this iframe.
+      // Instant scrolling preserves trackpad deltas even on smooth-scroll sites.
+      window.scrollBy({ left: deltaX * scaleX, top: deltaY * scaleY, behavior: "instant" });
+      emitScroll();
+      return;
+    }
+
+    if (event.data.type !== "INLINE_EDIT_CAPTURE_REQUEST") return;
+
+    handleCaptureRequest(event);
+  });
+})();
+
+
+</script></body>
+</html>
